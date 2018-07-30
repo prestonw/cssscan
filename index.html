@@ -55,12 +55,24 @@
   <video class="demo-img" autoplay="" loop="" muted="true" playsinline="">
     <source src="img/demo.mp4" type="video/mp4">
   </video>
+  <section class="testimonials">
+    <p class="sales">337 people already bought it.</p>
+    <div class="testimonial">
+      <i class="fas fa-chevron-left"></i>
+      <div class="content">
+        <p class="review">Very useful! I do not even count the time I had to inspect each element 🔥</p>
+        <img class="avatar" src="https://avatars.io/twitter/Joulse_">
+        <p class="author">Joulse - @joulse</p>
+      </div>
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </section>
   <footer>
     <p>Made with ❤️ and 😅 by 
       <img src="https://avatars.io/twitter/gvrizzo" height="20" class="profile-img">
       <a href="https://twitter.com/gvrizzo" target="_blank">@gvrizzo</a> | <a href="https://www.producthunt.com/posts/css-scan" target="_blank">We’re live on Product Hunt!</a> 😻
     </p>
-    <p>By buying this you'll earn superpowers and also help me travel around the world with bicycle 😊</p>
+    <p class="support">By buying this you'll earn superpowers and also help me travel around the world with bicycle 😊</p>
   </footer>
   <a href="https://wip.chat/@gvrizzo" data-wip>Made by Guilherme Rizzo</a>
   <script src="js/fontawesome-all.min.js"></script>
@@ -70,14 +82,101 @@
   <script src="demo-build/main.js"></script>
   <script src="https://platform.wip.chat/widgets.js" type="text/javascript"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120858769-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120858769-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'UA-120858769-2');
-</script>
+    gtag('config', 'UA-120858769-2');
+  </script>
+  <script>
+    var reviews = [
+      {
+        author: {
+          name: 'Joulse',
+          twitter: 'Joulse_'
+        },
+        review: 'Very useful! I do not even count the time I had to inspect each element 🔥'
+      },
+      {
+        author: {
+          name: 'Gabriel Dorin',
+          twitter: 'gabriel_dorin'
+        },
+        review: `This was an instant buy for me, that's all I have to say.`
+      },
+      {
+        author: {
+          name: 'Jarod Stewart',
+          twitter: 'stewartjarod'
+        },
+        review: `I love this idea and it works really well! Great work! Bought it and would recommend!`
+      },
+      {
+        author: {
+          name: 'Aimless Vomit',
+          twitter: 'aimless_vomit'
+        },
+        review: `Incredibly useful! Bought`
+      },
+      {
+        author: {
+          name: 'Greg Stone',
+          twitter: 'heyitsgregstone'
+        },
+        review: `WOW! This is amazing! Thank you! Take my money!!!!`
+      }
+    ]
+    var position = 0
 
+    function updateCarousel () {
+      $('.review').text(reviews[position].review)
+      $('.avatar').attr('src', `https://avatars.io/twitter/${reviews[position].author.twitter}`)
+      $('.author').text(`${reviews[position].author.name} - @${reviews[position].author.twitter}`)
+    }
+
+    function forward () {
+      if (position === 4) {
+        position = 0
+      } else {
+        position += 1
+      }
+    }
+
+    function backward () {
+      if (position === 0) {
+        position = 4
+      } else {
+        position -= 1
+      }
+    }
+
+    updateCarousel()
+    var carouselTimer = window.setInterval(function() {
+      forward()
+      updateCarousel()
+    }, 4000);
+
+    $('body').on('click', '.fa-chevron-left', function () {
+      backward()
+      updateCarousel()
+      window.clearInterval(carouselTimer)
+      carouselTimer = window.setInterval(function() {
+        forward()
+        updateCarousel()
+      }, 4000)
+    })
+
+    $('body').on('click', '.fa-chevron-right', function () {
+      forward()
+      updateCarousel()
+      window.clearInterval(carouselTimer)
+      carouselTimer = window.setInterval(function() {
+        forward()
+        updateCarousel()
+      }, 4000)
+    })
+  </script>
 </body>
 </html>

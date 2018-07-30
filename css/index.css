@@ -128,8 +128,14 @@ footer {
   max-width: 95%;
 }
 
-p:last-child {
+.support {
   display: none;
+}
+
+.review,
+.avatar,
+.author {
+  transition: 300ms;
 }
 
 iframe[src*="wip.chat"] {
@@ -144,6 +150,51 @@ iframe[src*="wip.chat"] {
 .supported-browsers svg:last-child {
   margin-left: .5em;
 }
+
+.testimonials {
+  margin: 5em auto 4em;
+  max-width: 650px;
+  text-align: center;
+}
+
+.fa-chevron-left,
+.fa-chevron-right {
+  cursor: pointer;
+}
+
+.review {
+  font-size: 20px;
+}
+
+.author,
+.sales {
+  font-size: .85em;
+  color: #999;
+}
+
+.sales {
+  margin-bottom: 3em;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.content {
+  margin: 0 2em;
+  flex: 1 1 100%;
+  height: 220px;
+}
+
+.testimonial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 
 @media screen and (min-width: 450px) {
   footer {
@@ -167,6 +218,14 @@ iframe[src*="wip.chat"] {
 
   .button {
     margin-left: 1em;
+  }
+
+  .review {
+    font-size: 25px;
+  }
+
+  .testimonials {
+    margin-bottom: 6.5em;
   }
 
   .video {
@@ -201,7 +260,7 @@ iframe[src*="wip.chat"] {
     bottom: initial;
   }
 
-  p:last-child {
+  .support {
     display: block
   }
 }
