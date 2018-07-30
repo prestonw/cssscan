@@ -70,7 +70,7 @@
   <footer>
     <p>Made with ❤️ and 😅 by 
       <img src="https://avatars.io/twitter/gvrizzo" height="20" class="profile-img">
-      <a href="https://twitter.com/gvrizzo" target="_blank">@gvrizzo</a> | <a href="https://www.producthunt.com/posts/css-scan" target="_blank">We’re live on Product Hunt!</a> 😻
+      <a href="https://twitter.com/gvrizzo" target="_blank">@gvrizzo</a> | <b><a href="https://www.producthunt.com/posts/css-scan" target="_blank">Product of the Day #5 on Product Hunt!</a></b> 😻
     </p>
     <p class="support">By buying this you'll earn superpowers and also help me travel around the world with bicycle 😊</p>
   </footer>
@@ -126,6 +126,13 @@
           twitter: 'heyitsgregstone'
         },
         review: `WOW! This is amazing! Thank you! Take my money!!!!`
+      },
+      {
+        author: {
+          name: 'William',
+          twitter: 'wimgz'
+        },
+        review: `Saves a lot of time (compared to Chrome dev tools). Seamless experience. As soon as I bought CSS Scan it became natural to use it`
       }
     ]
     var position = 0
@@ -137,7 +144,7 @@
     }
 
     function forward () {
-      if (position === 4) {
+      if (position === reviews.length - 1) {
         position = 0
       } else {
         position += 1
@@ -146,7 +153,7 @@
 
     function backward () {
       if (position === 0) {
-        position = 4
+        position = reviews.length - 1
       } else {
         position -= 1
       }
