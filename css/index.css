@@ -265,6 +265,10 @@ iframe[src*="wip.chat"] {
   footer {
     margin-top: 0;
   }
+
+  .testimonial {
+    width: 650px;
+  }
 }
 
 .ignore-a {
