@@ -173,6 +173,7 @@ iframe[src*="wip.chat"] {
 }
 
 .sales {
+  font-weight: bold;
   margin-bottom: 3em;
 }
 
