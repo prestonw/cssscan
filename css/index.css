@@ -132,12 +132,6 @@ footer {
   display: none;
 }
 
-.review,
-.avatar,
-.author {
-  transition: 300ms;
-}
-
 iframe[src*="wip.chat"] {
   display: none;
 }
@@ -197,13 +191,6 @@ iframe[src*="wip.chat"] {
 }
 
 
-@media screen and (min-width: 450px) {
-  footer {
-    bottom: 0;
-    position: fixed;
-  }
-}
-
 @media screen and (min-width: 1065px) {
   .button:last-child {
     margin-left: 1em;
@@ -254,11 +241,6 @@ iframe[src*="wip.chat"] {
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-  }
-
-  footer {
-    position: initial;
-    bottom: initial;
   }
 
   .support {
