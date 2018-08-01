@@ -206,8 +206,9 @@ addElement(body, 'div', 'cssscan-css',
             <p id="cssscan-copy">Click to copy</p>`)
 
 addElement(body, 'div', 'cssscan-buttons',
-          `<div class="cssscan-button" id="cssscan-ignore-box-sizing-div"><input type="checkbox" id="cssscan-checkbox-ignore-box-sizing"> Ignore box-sizing</div>
-          <div class="cssscan-button" id="cssscan-ignore-hover-div"><input type="checkbox" id="cssscan-checkbox-ignore-hover"> Ignore :hover styles</div>
+          `<div class="cssscan-button" id="cssscan-copy-selector-div"><input type="checkbox" id="cssscan-checkbox-copy-selector"> Copy selector name</div>
+           <div class="cssscan-button" id="cssscan-ignore-box-sizing-div"><input type="checkbox" id="cssscan-checkbox-ignore-box-sizing"> Ignore box-sizing</div>
+           <div class="cssscan-button" id="cssscan-ignore-hover-div"><input type="checkbox" id="cssscan-checkbox-ignore-hover"> Ignore :hover styles</div>
            <div class="cssscan-button" id="cssscan-grid-btn"><input type="checkbox" id="cssscan-checkbox-grid"> Show grid</div>
            <button id="cssscan-close">Exit CSSScan</button>`)
 
@@ -222,10 +223,12 @@ var buttons_div = document.getElementById('cssscan-buttons');
 var ignore_box_sizing = false
 var ignore_hover = false
 var show_grid = false
+var copy_selector = false
 
 var checkbox_grid = document.getElementById("cssscan-checkbox-grid");
 var checkbox_ignore_box_sizing = document.getElementById("cssscan-checkbox-ignore-box-sizing");
 var checkbox_ignore_hover = document.getElementById("cssscan-checkbox-ignore-hover");
+var checkbox_copy_selector = document.getElementById("cssscan-checkbox-copy-selector");
 
 function close () {
   //style_loader.parentNode.removeChild(style_loader)
@@ -259,12 +262,17 @@ document.onkeydown = function(evt) {
 var handle_click_body = function(e) {
   if (e.target.id === 'cssscan-close') {
     close()
-  } else if (code_div.textContent !== 'No styles found' && e.target.id !== 'cssscan-css' && e.target.id !== 'cssscan-checkbox-grid' && e.target.id !== 'cssscan-checkbox-ignore-box-sizing' && e.target.id !== 'cssscan-checkbox-ignore-hover' && e.isTrusted == true) {
+  } else if (code_div.textContent !== 'No styles found' && e.target.id !== 'cssscan-css' && e.target.id !== 'cssscan-checkbox-grid' && e.target.id !== 'cssscan-checkbox-ignore-box-sizing' && e.target.id !== 'cssscan-checkbox-ignore-hover' && e.target.id !== 'cssscan-checkbox-copy-selector' && e.isTrusted == true) {
     //copy to clipboard
     var tempInput = document.createElement("textarea");
     tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    
+    if (copy_selector) {
+      tempInput.value = `${title_div.textContent} {\n ${code_div.textContent.slice(1, -1)}\n}`
+    } else {
+      tempInput.value = '  ' + code_div.textContent.slice(2, -1);
+    }
     // Remove first and last character + jump each line
-    tempInput.value = code_div.textContent.slice(2, -1);
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand('copy');
@@ -350,12 +358,14 @@ const handle_mousemove_html = function(e){
   const ignore = ['cssscan-grid-btn', 'cssscan-checkbox-grid', 'cssscan-close', 
                   'cssscan-css', 'cssscan-code', 'cssscan-copy', 'cssscan-title',
                   'cssscan-dimensions', 'cssscan-buttons', 'cssscan-ignore-box-sizing-div',
-                  'cssscan-checkbox-ignore-box-sizing', 'cssscan-ignore-hover-div', 'cssscan-checkbox-ignore-hover']
+                  'cssscan-checkbox-ignore-box-sizing', 'cssscan-ignore-hover-div', 'cssscan-checkbox-ignore-hover',
+                  'cssscan-checkbox-copy-selector', 'cssscan-copy-selector-div']
   const target = e.target
 
   if (target.id === 'cssscan-close' || target.id === 'cssscan-grid-btn' || target.id === 'cssscan-checkbox-grid'
       || target.id === 'cssscan-checkbox-ignore-hover' || target.id === 'cssscan-checkbox-ignore-box-sizing'
-      || target.id === 'cssscan-ignore-hover-div' || target.id === 'cssscan-ignore-box-sizing-div') {
+      || target.id === 'cssscan-ignore-hover-div' || target.id === 'cssscan-ignore-box-sizing-div'
+      || target.id === 'cssscan-copy-selector-div' || target.id === 'cssscan-checkbox-copy-selector') {
     if (lastE.classList !== undefined) {
       lastE.classList.remove('cssscan-current');
     }
@@ -494,6 +504,7 @@ function start () {
   checkbox_ignore_box_sizing.checked = ignore_box_sizing
   checkbox_ignore_hover.checked = ignore_hover
   checkbox_grid.checked = show_grid
+  checkbox_copy_selector.checked = copy_selector
 
   if (show_grid) {
     body.classList.add('cssscan-grid-show')
@@ -515,6 +526,11 @@ function start () {
 
   checkbox_ignore_hover.addEventListener('change', function() {
     ignore_hover = this.checked
+    handler({}, lastE)
+  });
+
+  checkbox_copy_selector.addEventListener('change', function() {
+    copy_selector = this.checked
     handler({}, lastE)
   });
 
